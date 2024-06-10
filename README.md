@@ -1,2 +1,2 @@
-# gsssmorpa.github.io
-here you can add school attandance
+# gsssmorpa
+here you can add school attandance using google sheet
