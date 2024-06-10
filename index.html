@@ -140,7 +140,7 @@ const id= urlParams.get('sid');
 const fid=urlParams.get('fid');
 
 var url = 'https://docs.google.com/spreadsheets/d/'+id+'/gviz/tq?tqx=out:json&tq&gid='+gid;
-  
+$("form").eq(0).attr("action","https://script.google.com/macros/s/"+fid+"/dev")
   
 fetch(url)
   .then(response => response.text())
