@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="hi"><head>
+<title>attandance system</title>
+<meta charset="UTF-8" />
+<meta name='viewport' content='user-scalable=no,width=device-width,initial-scale=1,maximum-scale=1'/>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Open Sans|Sura">
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+<style>
+table {border-collapse: collapse;}
+th,td{border: 1px solid #bbb;
+  padding: 10px 35px;
+}
+body{background:#ffd4de;max-width:100%}
+#json{width:300px}
+.wwrap{background:#fff;padding:5px;width:95%; border-radius:5px;border:1px solid #ddd;margin:0 auto;margin-bottom:10px}
+.bigl{font-size:20px;margin:3px;font-family: 'Open Sans'; font-weight:700;padding:10px 2px}
+input{padding:8px}
+
+#sclass{padding:6px;background: url("data:image/svg+xml,<svg height='10px' width='10px' viewBox='0 0 16 16' fill='%23000000' xmlns='http://www.w3.org/2000/svg'><path d='M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z'/></svg>") no-repeat;
+    background-position: calc(100% - 0.75rem) center !important;
+    -moz-appearance:none !important;
+    -webkit-appearance: none !important; 
+    appearance: none !important;
+    padding-right: 2rem !important;}
+
+#btn{font-size:14px;background:#c84c63;color:#fff;border:0px solid #fff;border-radius:5px; padding:8px 16px; font-weight:700;font-family: 'Roboto'}
+.chkbox{accent-color:#c84c63;margin:5px}
+.chkbox+label{font-family: Arial, Helvetica, sans-serif;margin:5px}
+.wwrap+span{margin:5px}
+.centered {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%)
+}
+#imgcont{position: relative;
+  text-align: center;
+  color: #fdfef8; height:100px;font-size:27px; font-weight:600;
+background:#008b8b;font-family:Sura;border-radius:5px
+}
+#imgcont span{color:#00bfff}
+.pfooter{position: absolute;height:60px; bottom:0;
+left:0;right:0;margin-left:auto;
+  margin-right:auto;text-align:center}
+body,html{height:100%;margin:0; padding:0}
+#body ,#atdata{ padding-bottom:60px;}
+#cont{ position:relative;
+    min-height:100%;}
+.pfooter>div{margin:8px; background:#fff; height:44px}
+
+.material-icons{animation: mymove 2s ease-in-out 4s infinite alternate;
+}
+
+@keyframes mymove {
+  from {-moz-transform: scale(-1, 1);-webkit-transform: scale(-1, 1);-o-transform: scale(-1, 1);-ms-transform: scale(-1, 1);transform: scale(-1, 1);}
+  to {-moz-transform: scale(1, 1);-webkit-transform: scale(1, 1);-o-transform: scale(1, 1);-ms-transform: scale(1, 1);transform: scale(1, 1)}
+}
+#atdata{display:none}
+#atdata table{text -align:center;margin:0 auto;}
+#atdata>div{padding:5px;background:#fff;margin:5px;}
+
+</style>
+</head>
+
+
+
+
+<body>
+<div id='cont'>
+<div id="body">
+<div class='wwrap'>
+<div id='imgcont'>
+<div class="centered"style="width:100%"><i class="material-icons" style="font-size:30px;color:white; position: relative; bottom:-5px">school</i>  राजकीय उच्च माध्यमिक विद्यालय मोरपा,कोटा  <i class="material-icons" style="font-size:30px;color:white; position: relative; bottom:-5px">school</i></div>
+</div>
+
+</div>
+
+
+<div class='wwrap'>
+<div class='bigl'>School Attendance System</div>
+</div>
+
+<div class='wwrap'>
+
+<marquee width="90%" direction="left" height="50px"><span>उपस्थिति दर्ज करने के लिए विद्यार्थी के नाम के सम्मुख स्थित चेक बॉक्स पर क्लिक करें</span></marquee>
+<form method="POST"action="https://script.google.com/macros/s/AKfycbxNC1JiLWUtlS80YRpxA6ch-ZD5q5DMBbZANx0KgFJ7/dev"onsubmit="handleFormSubmit(this)">
+
+     <label for="sclass">Select Class:</label>
+  <select id="sclass" name="class">
+    <option value="1">1</option>
+    <option value="2">2</option>
+    <option value="3">3</option>
+    <option value="4">4</option>
+    <option value="5">5</option>
+    <option value="6">6</option>
+    <option value="7">7</option>
+    <option value="8">8</option>
+    <option value="9">9</option>
+    <option value="10">10</option>
+    <option value="11">11</option>
+    <option value="12">12</option>
+  </select>
+    <br><br>
+    <div id="checkboxs"></div><br>
+<input type="hidden"name="frange" id="frange"value="" />
+<input type="hidden"name="chkval" id="chkval"value="" />
+  <input type="submit"value="Save"id="btn">
+</form>
+</div>
+</div>
+
+<div id='atdata'><div class='wwrap'><div><h1>Today's Attandance</h1></div></div></div>
+
+<div class='pfooter'><div id='ftch'>
+Designed By:<br>Mukesh Pareta</div></div>
+
+
+</div>
+</body></html>
+
+
+
+<script>
+var id = '1DrPqeW8olvocDRFgft3r9ytRwxqno8NNnxg_dpHmPXk';
+var gid = '0';
+var url = 'https://docs.google.com/spreadsheets/d/'+id+'/gviz/tq?tqx=out:json&tq&gid='+gid;
+var json;
+var headers=[];
+var data=[];
+var fildata=[]; //whhere att is not filled
+
+var nfclass=[];
+var dnfclass=[];
+
+fetch(url)
+  .then(response => response.text())
+  .then(function(data){ 
+//document.getElementById("json").innerHTML=
+
+var jsonString=data.substring(47).slice(0, -2)
+json = JSON.parse(jsonString);
+process();
+})
+
+
+function process(){
+
+console.log(json)
+console.log(json.table.rows[0].c[0].v);
+json.table.cols.forEach(function(colonne,i){
+if(colonne.label!=""){
+console.log(colonne);
+headers[i]=colonne.label;
+//return headers;}
+}
+})
+
+console.log(headers);
+
+json.table.rows.forEach(function(rows){
+
+if(rows.c[1]===null){
+rows.c[1]={v:"class"};
+}
+
+if(rows.c[3]===null){
+rows.c[3]={v:"NA"};
+dnfclass.push(rows.c[1].v);
+}else{
+fildata.push({name:rows.c[0].v,class:rows.c[1].v,gender:rows.c[2].v,stat:rows.c[3].v}) //students whwee att is filled
+}
+
+data.push({name:rows.c[0].v,class:rows.c[1].v,gender:rows.c[2].v,stat:rows.c[3].v}) 
+})
+
+nfclass = [...new Set(dnfclass)];
+getatdata(fildata);
+
+//process end
+}
+
+
+$('#sclass').on('change', function() {
+var checkboxdata="";
+var range=[];
+
+$("#checkboxs *").remove(); 
+ console.log(data);
+ var i=0;
+   data.forEach((item,index)=>{
+   
+    if(item.class==this.value){
+      range[i]=index+1;
+      i++;
+    checkboxdata=checkboxdata+"<label for='stdname'><input type='checkbox'value='"+item.name+"'name='stdname'class='chkbox'>"+item.name+"</label><br>";
+   }else{console.log('not equal')}
+})
+
+$("#checkboxs").append(checkboxdata);
+$("#frange").val(range);
+console.log(range);
+ // alert( this.value );
+
+});
+
+
+var chkboxval=[];
+function handleFormSubmit(){
+//return false;
+$("input[type='checkbox']" ).each(function( index ) {
+   if($(this).is(":checked"))
+chkboxval[index]='P';
+else
+chkboxval[index]='A';
+});
+$("#chkval").val(chkboxval);
+console.log($(this).serialize());
+}
+
+
+
+var att=[{boy:0,girl:0}];
+
+function getatdata(data){
+
+data.forEach((data,i)=>{ 
+var mclass=[1,2,3,4,5,6,7,8,9,10,11,12];
+
+mclass.forEach((mclass,j)=>{
+if(!i){att[j]={boy:0,girl:0};}
+
+if(data.class==mclass && data.stat=='P'){
+
+if(data.gender=='M'){
+att[j].boy=att[j].boy+1;
+}else{
+att[j].girl=att[j].girl+1;
+}
+}
+})
+})
+//End
+//print start
+
+console.log(att);
+var atdata;
+atdata="<table><tr><th>class</th><th>boys</th><th>girls</th></tr>";
+console.log(nfclass);
+att.forEach((item,i)=>{ 
+var j=i+1;
+console.log(nfclass);
+
+if(nfclass.indexOf(j)>-1){
+att[i].boy="not filled";
+att[i].girl="not filled";
+}
+ atdata+="<tr><td> "+(j)+" </td><td>"+ att[i].boy+" </td><td> "+att[i].girl+"</td></tr>";
+
+});
+atdata+="<table>";
+
+//We got atdata now show it
+
+const urlParams = new URLSearchParams(window.location.search);
+const viewsheet= urlParams.get('viewsheet');
+if (viewsheet===null) {
+
+}else{
+$("#body").hide();
+$("#atdata").show();
+$("#atdata").prepend("<div>"+$(".wwrap:eq(0)").html()+"</div>");
+$("#atdata .wwrap").css("margin-top","5px");
+$("#atdata .wwrap div").append(atdata);
+}
+
+}
+
+function onlyUnique(value, index, array) {
+  return array.indexOf(value) === index;
+}
+</script>
