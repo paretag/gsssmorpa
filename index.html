@@ -198,7 +198,7 @@ $("#checkboxs *").remove();
  var i=0;
    data.forEach((item,index)=>{
    
-    if(item.class==this.value){
+    if(item.class===this.value){
       range[i]=index+1;
       i++;
     checkboxdata=checkboxdata+"<label for='stdname'><input type='checkbox'value='"+item.name+"'name='stdname'class='chkbox'>"+item.name+"</label><br>";
@@ -226,14 +226,12 @@ $("#chkval").val(chkboxval);
 console.log($(this).serialize());
 }
 
-
-
+var mclass=[1,2,3,4,5,6,7,8,9,10,"11A","12A"];
 var att=[{boy:0,girl:0}];
 
 function getatdata(data){
 
 data.forEach((data,i)=>{ 
-var mclass=[1,2,3,4,5,6,7,8,9,10,"11A","12A"];
 
 mclass.forEach((mclass,j)=>{
 if(!i){att[j]={boy:0,girl:0};}
