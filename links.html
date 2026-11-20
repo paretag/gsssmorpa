@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>My Links</title>
+<style>
+body{font-family:Arial;padding:15px;background:#f2f2f2}
+input{width:100%;padding:12px;margin:5px 0;font-size:16px;box-sizing:border-box}
+button{width:100%;padding:12px;background:#00968c;color:#fff;border:none;font-size:18px;border-radius:8px}
+a{display:block;background:#fff;padding:15px;margin:10px 0;border-radius:10px;text-decoration:none;color:#000;font-size:18px}
+</style>
+</head>
+<body>
+<h2>My Links - Add Without GitHub</h2>
+
+<input id="lname" placeholder="Link ka naam - jaise My Video">
+<input id="llink" placeholder="Link yahan paste karo">
+<button onclick="saveLink()">+ Save Link</button>
+
+<div id="list"></div>
+
+<script>
+function loadLinks(){
+  let links = JSON.parse(localStorage.getItem('mylinks') || '[]');
+  let html = '';
+  links.forEach((l,i)=>{
+    html += '<a href="'+l.url+'" target="_blank">'+l.name+'</a>';
+  });
+  document.getElementById('list').innerHTML = html;
+}
+function saveLink(){
+  let name = document.getElementById('lname').value;
+  let url = document.getElementById('llink').value;
+  if(!url) return alert('Link daalo');
+  if(!name) name = url;
+  let links = JSON.parse(localStorage.getItem('mylinks') || '[]');
+  links.push({name:name, url:url});
+  localStorage.setItem('mylinks', JSON.stringify(links));
+  document.getElementById('lname').value='';
+  document.getElementById('llink').value='';
+  loadLinks();
+}
+loadLinks();
+</script>
+</body>
+</html>
